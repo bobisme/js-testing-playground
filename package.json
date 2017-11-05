@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "test": "make test"
+  },
   "devDependencies": {
     "ajv": "^5.3.0",
     "chai": "^4.1.2",
@@ -9,6 +12,7 @@
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
+    "jsdom": "^11.3.0",
     "karma": "^1.7.1",
     "karma-buble-preprocessor": "^1.2.0",
     "karma-chai": "^0.1.0",
@@ -17,12 +21,14 @@
     "karma-rollup-preprocessor": "^5.0.1",
     "mocha": "^4.0.1",
     "nightwatch-cucumber": "^8.2.8",
+    "reify": "^0.12.3",
     "rollup": "^0.50.0",
     "rollup-plugin-buble": "^0.16.0",
     "sinon": "^4.1.1",
     "sinon-chai": "^2.14.0"
   },
   "dependencies": {
-    "nightwatch": "^0.9.16"
+    "nightwatch": "^0.9.16",
+    "request": "^2.83.0"
   }
 }

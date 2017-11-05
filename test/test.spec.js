@@ -7,3 +7,9 @@ describe('Array', () => {
     })
   })
 })
+
+describe('dom stuff', function() {
+  it('has a body', function() {
+    expect(window.document.getElementsByTagName('body').length).to.equal(1)
+  })
+})

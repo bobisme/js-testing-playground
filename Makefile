@@ -1,15 +1,27 @@
 default: help
 
+.PHONY: test-jsdom
+test-jsdom: ## Run Node/JSDOM tests
+	@echo "Running node/jsdom tests"
+	mocha --require reify --require test/setup-jsdom
+	@echo
+
 .PHONY: test-karma
-test-karma:
+test-karma: ## Run tests via karma
+	@echo "Running karma tests"
 	karma start --single-run --browsers ChromeHeadless karma.conf.js
+	@echo
 
 .PHONY: test-nightwatch
 test-nightwatch:
+	@echo "Running acceptance tests with nightwatch"
 	scripts/run-acceptance-tests.js
+	@echo
 
 test-cucumber: test-nightwatch
 test-acceptance: test-nightwatch ## Run acceptance tests.
+
+test: test-jsdom test-karma test-nightwatch ## Run ALL tests
 
 # Terminal color codes.
 BLUE := $(shell tput setaf 4)
