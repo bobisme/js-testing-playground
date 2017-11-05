@@ -1,8 +1,15 @@
 default: help
 
-.PHONY: test
-test:
+.PHONY: test-karma
+test-karma:
 	karma start --single-run --browsers ChromeHeadless karma.conf.js
+
+.PHONY: test-nightwatch
+test-nightwatch:
+	scripts/run-acceptance-tests.js
+
+test-cucumber: test-nightwatch
+test-acceptance: test-nightwatch ## Run acceptance tests.
 
 # Terminal color codes.
 BLUE := $(shell tput setaf 4)
