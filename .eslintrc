@@ -4,8 +4,18 @@
     "node": true,
     "mocha": true
   },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["react"],
   "rules": {
     "comma-dangle": ["error", "always-multiline"],
+    // Prevent React to be incorrectly marked as unused
+    "react/jsx-uses-react": "error",
+    // Prevent variables used in JSX to be incorrectly marked as unused
+    "react/jsx-uses-vars": "error",
     "space-before-function-paren": ["error", "never"]
   }
 }

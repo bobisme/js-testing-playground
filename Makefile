@@ -1,10 +1,19 @@
 default: help
 
+TEST_FILES ?= 'test/**/*.spec.js'
+MOCHA_OPTS := \
+	--require babel-register \
+	--require test/setup-jsdom \
+	--require test/setup-enzyme
+
 .PHONY: test-jsdom
 test-jsdom: ## Run Node/JSDOM tests
 	@echo "Running node/jsdom tests"
-	mocha --require reify --require test/setup-jsdom
+	mocha $(MOCHA_OPTS) $(TEST_FILES)
 	@echo
+
+test-jsdom-watch: ## Run Node/JSDOM tests and watch for changes
+	mocha --watch $(MOCHA_OPTS) $(TEST_FILES)
 
 .PHONY: test-karma
 test-karma: ## Run tests via karma
@@ -15,13 +24,19 @@ test-karma: ## Run tests via karma
 .PHONY: test-nightwatch
 test-nightwatch:
 	@echo "Running acceptance tests with nightwatch"
-	scripts/run-acceptance-tests.js
+	nightwatch
 	@echo
 
 test-cucumber: test-nightwatch
 test-acceptance: test-nightwatch ## Run acceptance tests.
 
 test: test-jsdom test-karma test-nightwatch ## Run ALL tests
+
+.PHONY: start-dev-server
+start-dev-server:
+	env NODE_ENV=dev webpack-dev-server
+
+start: start-dev-server
 
 # Terminal color codes.
 BLUE := $(shell tput setaf 4)

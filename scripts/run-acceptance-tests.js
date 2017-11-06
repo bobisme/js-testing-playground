@@ -56,6 +56,7 @@ function runContainer() {
   log.info(`Starting ${IMAGE}\n`)
   return execSync(
     `docker run --rm --detach --publish-all --name ${CONTAINER_NAME} ${IMAGE}`)
+    // `docker run --rm --detach --network host --expose 4444 --name ${CONTAINER_NAME} ${IMAGE}`)
 }
 
 function dockerPort() {
@@ -63,6 +64,7 @@ function dockerPort() {
   let [host, port] = result.toString().trim().split(':')
   if (port.trim() === '') throw new Error('invalid port')
   return { host, port }
+  // return { host: '0.0.0.0', port: '4444' }
 }
 
 function onceRunning(callback, timeout = 2000, retries = 30) {
@@ -106,7 +108,7 @@ function runTests(host, port) {
     tests.stdout.on('data', data => process.stdout.write(data))
     tests.stderr.on('data', data => process.stderr.write(data))
     tests.on('error', err => process.stderr.write(err))
-    tests.on('close', stopContainer)
+    // tests.on('close', stopContainer)
   }
 }
 
