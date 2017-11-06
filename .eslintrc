@@ -16,6 +16,7 @@
     "react/jsx-uses-react": "error",
     // Prevent variables used in JSX to be incorrectly marked as unused
     "react/jsx-uses-vars": "error",
-    "space-before-function-paren": ["error", "never"]
+    "space-before-function-paren": ["error", "never"],
+    "generator-star-spacing": ["error", "after"]
   }
 }

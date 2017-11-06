@@ -3,6 +3,7 @@ default: help
 TEST_FILES ?= 'test/**/*.spec.js'
 MOCHA_OPTS := \
 	--require babel-register \
+	--require babel-polyfill \
 	--require test/setup-jsdom \
 	--require test/setup-enzyme
 
