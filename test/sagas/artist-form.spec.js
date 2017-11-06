@@ -18,16 +18,28 @@ describe('ArtistFormSagas', function() {
   })
 })
 
+const mockRequest = {
+  getArtist: function() {
+    return Promise.resolve({ name: 'Chiodos' })
+  },
+}
+
 describe('saga integration', function() {
   describe('submitting the form', function() {
     it('requests the artist', function() {
-      let { store, middleware } = setupStoreAndDispatched()
-      let getArtist = sinon.spy()
+      let { store, dispatched, middleware } = setupStoreAndDispatched()
       let rootSaga = new ArtistFormSagas()
-      rootSaga.artistRequests = { getArtist }
+      rootSaga.artistRequests = mockRequest
       middleware.run(rootSaga.saga())
-      store.dispatch({ type: 'SUBMIT_ARTIST', name: 'Chiodos' })
-      expect(getArtist).to.have.been.calledWith('Chiodos')
+      let action = { type: 'SUBMIT_ARTIST', name: 'Chiodos' }
+      store.dispatch(action)
+      return Promise.resolve(1).then(() => {
+        expect(dispatched).to.deep.equal([
+          { type: '@@redux/INIT' },
+          { type: 'SUBMIT_ARTIST', name: 'Chiodos' },
+          { type: 'GET_ARTIST', name: 'Chiodos' },
+        ])
+      })
     })
   })
 })

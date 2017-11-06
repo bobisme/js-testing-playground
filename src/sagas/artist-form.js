@@ -1,5 +1,5 @@
 import { takeEvery } from 'redux-saga'
-import { call } from 'redux-saga/effects'
+import { call, put } from 'redux-saga/effects'
 import * as artistRequests from 'lib/artist-requests'
 
 export class ArtistFormSagas {
@@ -10,7 +10,9 @@ export class ArtistFormSagas {
   submit() {
     let _this = this
     return function* (action) {
-      yield call(_this.artistRequests.getArtist, action.name)
+      let res
+      res = yield call(_this.artistRequests.getArtist, action.name)
+      yield put({ type: 'GET_ARTIST', name: res.name })
     }
   }
 
