@@ -1,8 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 // import { BrowserRouter } from 'react-router-dom'
+import 'babel-polyfill'
 
 const ROOT_ELEMENT_ID = 'app'
+let store = null
 
 function getAppElement(id = ROOT_ELEMENT_ID) {
   let element = document.getElementById(id)
@@ -21,16 +24,38 @@ function render(Component, element) {
   ReactDOM.render(<Component />, element)
 }
 
-export function mountPage(pageModule, Component, id = ROOT_ELEMENT_ID) {
+function renderProvider(Component, element) {
+  ReactDOM.render((
+    <Provider store={store}>
+      <Component />
+    </Provider>
+  ), element)
+}
+
+function loadStore() {
+  if (store != null) return
+  store = require('../store').configureStore()
+}
+
+export function mountPage(
+  pageModule, Component, options = {},
+) {
+  let id = options.id || ROOT_ELEMENT_ID
+  let withStore = (options.withStore === true)
+  if (withStore) loadStore()
+
   // If there is no document, we're in node, so just pass through.
   if (typeof document === 'undefined') { return Component }
 
-  render(Component, getAppElement(id))
-
-  if (pageModule.hot) {
-    pageModule.hot.accept()
-    render(Component, getAppElement(id))
+  function renderComponent() {
+    if (withStore) {
+      renderProvider(Component, getAppElement(id))
+    } else {
+      render(Component, getAppElement(id))
+    }
   }
+
+  if (pageModule.hot) { renderComponent() }
 
   return Component
 }

@@ -1,11 +1,13 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 export class ArtistForm extends React.Component {
   handleArtistChange = (ev) => {
     this.setState({ artist: ev.target.value })
   }
 
-  handleSubmit = () => {
+  handleSubmit = (ev) => {
+    ev.preventDefault()
     this.props.dispatch({ type: 'SUBMIT_ARTIST', name: this.state.artist })
   }
 
@@ -18,3 +20,7 @@ export class ArtistForm extends React.Component {
     )
   }
 }
+
+export default connect(
+  state => state,
+)(ArtistForm)

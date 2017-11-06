@@ -69,7 +69,7 @@ function devConfig(chunkName, entryPath) {
 
   config.entry = {
     [chunkName]: [
-      'webpack-hot-middleware/client',
+      // 'webpack-hot-middleware/client',
       entryPath,
     ],
   }
