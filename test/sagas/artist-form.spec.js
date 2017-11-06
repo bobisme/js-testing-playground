@@ -37,7 +37,7 @@ describe('saga integration', function() {
         expect(dispatched).to.deep.equal([
           { type: '@@redux/INIT' },
           { type: 'SUBMIT_ARTIST', name: 'Chiodos' },
-          { type: 'GET_ARTIST', name: 'Chiodos' },
+          { type: 'GET_ARTIST', payload: { name: 'Chiodos' } },
         ])
       })
     })

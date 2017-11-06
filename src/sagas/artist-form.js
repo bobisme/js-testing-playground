@@ -12,7 +12,7 @@ export class ArtistFormSagas {
     return function* (action) {
       let res
       res = yield call(_this.artistRequests.getArtist, action.name)
-      yield put({ type: 'GET_ARTIST', name: res.name })
+      yield put({ type: 'GET_ARTIST', payload: res })
     }
   }
 
