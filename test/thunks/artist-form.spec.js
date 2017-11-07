@@ -1,6 +1,4 @@
-import { expect } from 'chai'
-import sinon from 'sinon'
-import '../spec-helper'
+import { sinon, expect } from '../spec-helper'
 
 import { SubmitForm } from 'thunks/artist-form'
 
