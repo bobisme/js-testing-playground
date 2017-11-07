@@ -55,7 +55,10 @@ export function mountPage(
     }
   }
 
-  if (pageModule.hot) { renderComponent() }
+  if (pageModule.hot) {
+    pageModule.hot.accept()
+    renderComponent()
+  }
 
   return Component
 }

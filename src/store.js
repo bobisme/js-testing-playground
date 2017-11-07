@@ -8,7 +8,7 @@ function devToolsMiddleware() {
   if (typeof window !== 'undefined' && window.devToolsExtension) {
     return window.devToolsExtension()
   }
-  return f => f
+  return x => x
 }
 
 export function configureStore() {
@@ -24,6 +24,12 @@ export function configureStore() {
   )
 
   sagaMiddleware.run(new ArtistFormSagas().saga())
+
+  if (module.hot) {
+    module.hot.accept('reducers/artist-form', () =>
+      store.replaceReducer(require('reducers/artist-form').default)
+    )
+  }
 
   return store
 }

@@ -8,7 +8,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <h1>ARTISTS IN AREA!!!</h1>
+        <h1>ARTISTS IN AREA!</h1>
         <ArtistForm />
         <Artist />
       </div>
