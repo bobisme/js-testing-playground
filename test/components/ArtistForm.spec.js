@@ -1,8 +1,7 @@
 import React from 'react'
 
-import { expect } from 'chai'
-import { shallow } from 'enzyme'
-import sinon from 'sinon'
+import { expect, sinon } from '../spec-helper'
+import { shallow } from '../enzyme-helper'
 
 import { ArtistForm } from 'components/ArtistForm'
 
@@ -29,7 +28,7 @@ describe('ArtistForm', function() {
     let component = shallow(<ArtistForm dispatch={spy} />)
     component.setState({ artist: 'Primus' })
 
-    component.find('form').simulate('submit')
+    component.find('form').simulate('submit', { preventDefault: () => {} })
     expect(spy).to.have.been.calledWith(
       { type: 'SUBMIT_ARTIST', name: 'Primus' })
   })

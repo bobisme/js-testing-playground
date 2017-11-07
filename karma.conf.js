@@ -3,12 +3,15 @@ module.exports = function(config) {
     frameworks: ['mocha', 'chai'],
 
     files: [
+      // Need polyfill for the regenerator runtime.
+      'node_modules/babel-polyfill/dist/polyfill.js',
       // Make sure to disable Karma’s file watcher
       // because the preprocessor will use its own.
       { pattern: 'test/**/*.spec.js', watched: false },
     ],
 
     preprocessors: {
+      'src/*.js': ['webpack'],
       'src/**/*.js': ['webpack'],
       'test/**/*.js': ['webpack'],
       // 'test/**/*.spec.js': ['rollup'],
@@ -44,6 +47,8 @@ module.exports = function(config) {
       name: 'playground', // Required for 'iife' format.
       sourcemap: 'inline', // Sensible for testing.
     },
+
+    webpack: require('./webpack.config').getConfig('karma'),
 
     webpackMiddleware: {
       stats: 'errors-only',

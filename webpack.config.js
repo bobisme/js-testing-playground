@@ -116,4 +116,7 @@ const configs = (() => {
   return CHUNKS.map(chunk => devConfig(chunk[0], chunk[1]))
 })()
 
-module.exports = configs
+module.exports = {
+  default: configs,
+  getConfig,
+}
