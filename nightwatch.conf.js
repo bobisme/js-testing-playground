@@ -6,16 +6,6 @@ const BINPATH = './node_modules/nightwatch/bin'
 
 let seleniumPort = parseInt(process.env.SELENIUM_PORT || '4444', 10)
 
-// check that the selenium jar and chromedriver are available
-require('fs').stat(`${BINPATH}/selenium.jar`, function(err, stat) {
-  if (err || !stat || stat.size < 1) {
-    require('selenium-download').ensure(BINPATH, function(error) {
-      if (error) throw new Error(error)
-      console.log('✔ Selenium & Chromedriver downloaded to:', BINPATH)
-    })
-  }
-})
-
 const firefox = {
   desiredCapabilities: {
     browserName: 'firefox',
