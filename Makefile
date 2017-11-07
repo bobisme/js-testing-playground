@@ -13,6 +13,8 @@ test-jsdom: ## Run Node/JSDOM tests
 	mocha $(MOCHA_OPTS) $(TEST_FILES)
 	@echo
 
+test: test-jsdom ## Run unit tests
+
 test-jsdom-watch: ## Run Node/JSDOM tests and watch for changes
 	mocha --watch $(MOCHA_OPTS) $(TEST_FILES)
 
@@ -31,7 +33,7 @@ test-nightwatch:
 test-cucumber: test-nightwatch
 test-acceptance: test-nightwatch ## Run acceptance tests.
 
-test: test-jsdom test-karma test-nightwatch ## Run ALL tests
+test-all: test-jsdom test-karma test-nightwatch ## Run ALL tests
 
 .PHONY: start-dev-server
 start-dev-server:
@@ -49,9 +51,9 @@ help:
 	@# Print just the target, in blue.
 	@# Then print the next fields as the description
 	@# in case the description has a few ":"s in it.
+	@# | sed 's/^[^:]*://'   <-- only if including other makefiles
 	@grep -E '^[^ .]+: .*?## .*$$' $(MAKEFILE_LIST) \
 		| sort \
-		| sed 's/^[^:]*://' \
 		| awk '\
 			BEGIN { FS = ": .*##" };\
 			{ printf "$(BLUE)%-29s$(RESET) %s\n", $$1, $$2  }'
