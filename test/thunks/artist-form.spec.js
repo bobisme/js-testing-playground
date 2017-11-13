@@ -7,7 +7,7 @@ describe('Actions', function() {
     it('is a thunk that takes the artist name', function() {
       let dispatch = sinon.spy()
       let submitForm = new SubmitForm({ dispatch })
-      submitForm.getArtist = () => Promise.resolve({ name: 'BoB' })
+      sinon.stub(submitForm, 'getArtist').resolves({ name: 'BoB' })
       submitForm.thunk('BoB')(dispatch)
       return Promise.resolve(1).then(() => {
         expect(dispatch).to.have.been.calledWith(
